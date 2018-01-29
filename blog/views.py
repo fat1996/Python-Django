@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import Http404
 from models import Posts, Comments, Subscribers
 from django.template import loader
 
@@ -18,7 +19,11 @@ def showPosts(request):
 	return render(request, "index.html", context)	
 
 def showPostById(request, post_id):
-	return HttpResponse("<h2>Post ID: "+str(post_id) + "</h2>")
+	try:
+		post = Posts.objects.get(id = post_id)
+	except Posts.DoesNotExist:
+		raise Http404("Post doesn't exist.")
+	return render(request, "ShowPostByID.html", {'post': post})
 
 def showComments(request):
 	all_comments = Comments.objects.all()
