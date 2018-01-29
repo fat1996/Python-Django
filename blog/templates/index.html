@@ -1,0 +1,16 @@
+{% if all_posts %}
+	<h1>Here are all the posts:</h1>
+	<ul>
+		{% for post in all_posts %}
+		<li>
+		<b>Post #: </b>{{ post.id }}<br>
+		<b>Title: </b>{{ post.title }}<br>
+		<b>Author: </b>{{ post.author }}<br>
+		<b>Post URL: </b><a href="/posts/{{ post.id }}/">/posts/{{ post.id }}</a><br>
+		<b>Post Content: </b>{{ post.bodytext }} 
+		</li>
+		{% endfor %}
+	</ul>
+{% else %}
+	<h1>Oooppss..there are no posts to display.</h1>
+{% endif %}	
